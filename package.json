@@ -1,0 +1,24 @@
+{
+  "name": "there-is-a-calendar-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dafeizizhu/there-is-a-calendar-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dafeizizhu/there-is-a-calendar-server/issues"
+  },
+  "homepage": "https://github.com/dafeizizhu/there-is-a-calendar-server#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "passport": "^0.3.2",
+    "sqlite3": "^3.1.4"
+  }
+}
