@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/dafeizizhu/there-is-a-calendar-server#readme",
   "dependencies": {
     "express": "^4.13.4",
+    "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "sqlite3": "^3.1.4"
   }
