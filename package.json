@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/dafeizizhu/there-is-a-calendar-server#readme",
   "dependencies": {
+    "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.13.4",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
