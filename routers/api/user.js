@@ -1,12 +1,9 @@
-const express = require('express')
-const router = new express.Router()
+var express = require('express')
+var router = new express.Router()
 
-router
-  .route('/')
-  .post(function (req, res) {
-    // 创建用户
-    res.send('create user')
-  })
+var User = require('../../models/user')
+var objectId = require('mongoose').Types.ObjectId
+var md5 = require('md5')
 
 router
   .route('/:id')

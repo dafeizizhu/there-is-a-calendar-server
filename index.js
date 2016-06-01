@@ -1,11 +1,13 @@
-const express = require('express')
-const app = express()
+var express = require('express')
+var app = express()
 
-const cookieSession = require('cookie-session')
+var cookieSession = require('cookie-session')
+var bodyParser = require('body-parser')
 
 app.use(cookieSession({
   secret: 'yougerilicookie'
 }))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(require('./routers'))
 
 require('./connect-db')().then(function () {
