@@ -20,6 +20,7 @@
   "dependencies": {
     "cookie-session": "^2.0.0-alpha.1",
     "express": "^4.13.4",
+    "md5": "^2.1.0",
     "mongoose": "^4.4.19",
     "morgan": "^1.7.0",
     "node-uuid": "^1.4.7",

@@ -1,41 +1,21 @@
-var sqlite3 = require('sqlite3').verbose()
-var fs = require('fs')
-var db
+var mongoose = require('mongoose')
+var ObjectId = mongoose.Types.ObjectId
+var md5 = require('md5')
 
-function clean() {
-  fs.unlink('yougerili.sqlite3', createDb)
-}
+var User = require('../models/user')
 
-function createDb() {
-  console.log('create db')
-  db = new sqlite3.Database('yougerili.sqlite3', createTable)
-}
+require('../connect-db')().then(function () {
+  return User.remove({})  
+}).then(function () {
+  var id = ObjectId()
+  console.log('id', id)
 
-function createTable() {
-  console.log('create table')
-  db.run('create table if not exists user(id char(32) not null, name varchar(100) not null)', insertRow)
-}
-
-function insertRow() {
-  console.log('insert row')
-  var stmt = db.prepare('insert into user values(?, ?)')
-  stmt.run('12312231231', 'fasfasfasfd')
-  stmt.finalize(readRow)
-}
-
-function readRow() {
-  console.log('read row')
-  db.all('select * from user', function (err, rows) {
-    rows.forEach(function (row) {
-      console.log(row.id, row.name)
-    })
-    closeDb()
+  return User.create({
+    _id: id,
+    name: '测试',
+    password: md5('123')
   })
-}
-
-function closeDb() {
-  console.log('close db')
-  db.close()
-}
-
-clean()
+}).then(function () {
+  console.log('create success, arguments', arguments)
+  process.exit()
+})

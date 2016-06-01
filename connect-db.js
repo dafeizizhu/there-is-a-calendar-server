@@ -6,7 +6,6 @@ module.exports = function () {
     if (connected) {
       resolve()
     } else {
-      console.log(process.env)
       mongoose.connect(process.env.YOUGERILI_MONGODB_CONN_STR, { auth: { authdb: 'yougerili'}})
       mongoose.connection.on('connected', function () {
         connected = true
