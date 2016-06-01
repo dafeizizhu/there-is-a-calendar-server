@@ -8,4 +8,9 @@ app.use(cookieSession({
 }))
 app.use(require('./routers'))
 
-app.listen(80)
+require('./connect-db')().then(function () {
+  app.listen(8080)
+}, function (err) {
+  console.log(err)
+  process.exit()
+})
