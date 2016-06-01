@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo Initialize mongodb database
+echo name: $1
+echo pwd: $2
+echo host: $3
+echo port: $4
+
+mongo --port $4 --host $3 --eval "db = db.getSiblingDB('yougerili');db.createUser({ user: '$1', pwd: '$2', roles: [{ role: 'readWrite', db: 'yougerili'}]});JSON.stringify(db.getUsers())"
