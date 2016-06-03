@@ -5,19 +5,13 @@ var User = require('../../models/user')
 var objectId = require('mongoose').Types.ObjectId
 var md5 = require('md5')
 
-var dummyUser = {
-  name: '',
-  id: ''
-}
-
 router
   .route('/')
   .post(function (req, res) {
     if (req.session.user) {
       res.send({
         success: false,
-        message: '已经登入了',
-        user: dummyUser
+        message: '已经登入了'
       })
     } else {
       User.findOne({ name: req.body.name, password: md5(req.body.password)}).then(function (user) {
@@ -34,15 +28,13 @@ router
         } else {
           res.send({
             success: false,
-            message: '用户名或者密码不符',
-            user: dummyUser
+            message: '用户名或者密码不符'
           })
         }
       }, function (err) {
         res.send({
           success: false,
-          message: String(err),
-          user: dummyUser
+          message: String(err)
         })
       })
     }
