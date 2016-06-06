@@ -14,7 +14,10 @@ router
         message: '已经登入了'
       })
     } else {
-      User.findOne({ name: req.body.name, password: md5(req.body.password)}).then(function (user) {
+      User.findOne({
+        name: req.body.name, 
+        password: md5(req.body.password)
+      }).populate('calendars').exec().then(function (user) {
         if (user) {
           req.session.user = user
           res.send({
@@ -22,7 +25,14 @@ router
             message: '登入成功',
             user: {
               id: user._id,
-              name: user.name
+              name: user.name,
+              calendars: user.calendars.map(function (calendar) {
+                return {
+                  id: calendar._id,
+                  name: calendar.name,
+                  color: calendar.color
+                }
+              })
             }
           })
         } else {
@@ -31,7 +41,7 @@ router
             message: '用户名或者密码不符'
           })
         }
-      }, function (err) {
+      }).catch(function (err) {
         res.send({
           success: false,
           message: String(err)

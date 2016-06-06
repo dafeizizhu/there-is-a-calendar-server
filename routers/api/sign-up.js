@@ -18,10 +18,12 @@ router
         message: '已经登入了'
       })
     } else {
+      var name = req.body.name ? req.body.name.trim() : ''
+      var password = req.body.password || ''
       User.create({
         _id: objectId(),
-        name: req.body.name.trim(),
-        password: md5(req.body.password)
+        name: name,
+        password: md5(password)
       }).then(function () {
         res.send({
           success: true,

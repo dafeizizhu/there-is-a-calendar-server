@@ -11,23 +11,10 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  token: {
-    type: String,
-    unique: true,
-    default: uuid.v4
-  }
-})
-
-UserSchema.static('findByToken', function (token) {
-  return new Promise(function (resolve, reject) {
-    this.findOne({ token: token }, function (err, user) {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(user)
-      }
-    })
-  })
+  calendars: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Calendar'
+  }]
 })
 
 module.exports = mongoose.model('User', UserSchema)
