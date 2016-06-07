@@ -4,18 +4,18 @@ var objectId = mongoose.Schema.Types.ObjectId
 var EventSchema = new mongoose.Schema({
   title: {
     type: String,
-    require: true
+    required: true
   },
   location: {
     type: String
   },
   begin: {
     type: Date,
-    require: true
+    required: true
   },
   end: {
     type: Date,
-    require: true
+    required: true
   },
   repeat: {
     type: Boolean,

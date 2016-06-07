@@ -10,11 +10,7 @@ var UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  },
-  calendars: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Calendar'
-  }]
+  }
 })
 
 module.exports = mongoose.model('User', UserSchema)

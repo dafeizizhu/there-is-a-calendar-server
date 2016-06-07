@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var objectId = mongoose.Schema.Types.ObjectId
+var ObjectId = mongoose.Schema.Types.ObjectId
 
 var CalendarSchema = new mongoose.Schema({
   name: {
@@ -10,6 +10,11 @@ var CalendarSchema = new mongoose.Schema({
   color: {
     type: String,
     default: 'red',
+    required: true
+  },
+  user: {
+    type: ObjectId,
+    ref: 'User',
     required: true
   }
 })
