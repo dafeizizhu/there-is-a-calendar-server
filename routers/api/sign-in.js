@@ -25,10 +25,7 @@ router
           req.session.user = _user = user
           return Calendar.find({ user: user._id })
         } else {
-          res.send({
-            success: false,
-            message: '用户名或者密码不符'
-          })
+          throw new Error('用户名或者密码不符')
         }
       }).then(function (calendars) {
         _calendars = calendars
