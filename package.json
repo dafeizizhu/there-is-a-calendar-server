@@ -25,6 +25,7 @@
     "mongoose": "^4.4.19",
     "morgan": "^1.7.0",
     "node-uuid": "^1.4.7",
+    "normalizr": "^2.1.0",
     "passport": "^0.3.2"
   }
 }

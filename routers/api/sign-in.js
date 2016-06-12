@@ -6,6 +6,23 @@ var User = require('../../models/user')
 var Calendar = require('../../models/calendar')
 var Event = require('../../models/event')
 
+var normalizr = require('normalizr')
+var normalize = normalizr.normalize
+var Schema = normalizr.Schema
+var arrayOf = normalizr.arrayOf
+
+var userSchema = new Schema('users')
+var calendarSchema = new Schema('calendars')
+var eventSchema = new Schema('events')
+
+userSchema.define({
+  calendars: arrayOf(calendarSchema)
+})
+
+calendarSchema.define({
+  events: arrayOf(eventSchema)
+})
+
 router
   .route('/')
   .post(function (req, res) {
@@ -22,7 +39,7 @@ router
         password: md5(req.body.password)
       }).then(function (user) {
         if (user) {
-          req.session.user = _user = user
+          _user = user
           return Calendar.find({ user: user._id })
         } else {
           throw new Error('用户名或者密码不符')
@@ -35,10 +52,8 @@ router
           }
         })
       }).then(function (events) {
-        res.send({
-          success: true,
-          message: '登入成功',
-          user: {
+        return new Promise(function (resolve) {
+          resolve({
             id: _user._id,
             name: _user.name,
             calendars: _calendars.map(function (c) {
@@ -61,7 +76,18 @@ router
                 })
               }
             })
-          }
+          })
+        })
+      }).then(function (user) {
+        return new Promise(function (resolve) {
+          resolve(normalize(user, userSchema))
+        })
+      }).then(function (user) {
+        req.session.user = _user
+        res.send({
+          success: true,
+          message: '登入成功',
+          user: user
         })
       }).catch(function (err) {
         res.send({
