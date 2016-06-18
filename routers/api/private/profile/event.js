@@ -2,7 +2,7 @@ var express = require('express')
 var router = new express.Router()
 var ObjectId = require('mongoose').Types.ObjectId
 
-var Event = require('../../../models/event')
+var Event = require('../../../../models/event')
 
 function getErrorMessage(err) {
   if (err.name == 'ValidationError') {

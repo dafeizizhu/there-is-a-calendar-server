@@ -3,12 +3,14 @@ var router = new express.Router()
 var mongoose = require('mongoose')
 var ObjectId = mongoose.Types.ObjectId
 
-var User = require('../../../models/user')
-var Calendar = require('../../../models/calendar')
+var User = require('../../../../models/user')
+var Calendar = require('../../../../models/calendar')
 
 function getErrorMessage(err) {
   if (err.name == 'ValidationError') {
     return '非法数据'
+  } else if (err.name == 'CastError') {
+    return '无对应数据'
   } else {
     switch (err.code) {
       case 11000:
@@ -45,6 +47,29 @@ router
       res.send({
         success: false,
         message: getErrorMessage(err) || err 
+      })
+    })
+  })
+
+router
+  .route('/:id')
+  .delete(function (req, res) {
+    Calendar.findOneAndRemove({ _id: req.params.id }).then(function (c) {
+      res.send({
+        success: true,
+        message: '删除成功',
+        calendar: {
+          id: c._id,
+          name: c.name,
+          color: c.color,
+          user: c.user
+        }
+      })
+    }).catch(function (err) {
+      console.log('remove calendar faild', err)
+      res.send({
+        success: false,
+        message: getErrorMessage(err) || err
       })
     })
   })
