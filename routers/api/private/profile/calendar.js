@@ -64,8 +64,8 @@ router
           message: '修改成功',
           calendar: {
             id: c._id,
-            name: c.name,
-            color: c.color,
+            name: req.body.name,
+            color: req.body.color,
             user: c.user
           }
         })
