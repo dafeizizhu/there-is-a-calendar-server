@@ -53,6 +53,36 @@ router
 
 router
   .route('/:id')
+  .put(function (req, res) {
+    Calendar.findByIdAndUpdate(req.params.id, {
+      name: req.body.name,
+      color: req.body.color
+    }).then(function (c) {
+      if (c) {
+        res.send({
+          success: true,
+          message: '修改成功',
+          calendar: {
+            id: c._id,
+            name: c.name,
+            color: c.color,
+            user: c.user
+          }
+        })
+      } else {
+        res.send({
+          success: false,
+          message: '找不到对应数据'
+        })
+      }
+    }).catch(function (err) {
+      console.log('update calendar faild', err)
+      res.send({
+        success: false,
+        message: getErrorMessage(err) || err
+      })
+    })
+  })
   .delete(function (req, res) {
     Calendar.findOneAndRemove({ _id: req.params.id }).then(function (c) {
       res.send({
