@@ -2,6 +2,7 @@ var express = require('express')
 var router = new express.Router()
 var mongoose = require('mongoose')
 var ObjectId = mongoose.Types.ObjectId
+var log4js = require('log4js')
 
 var User = require('../../../../models/user')
 var Calendar = require('../../../../models/calendar')
@@ -18,6 +19,8 @@ function getErrorMessage(err) {
     }
   }
 }
+
+var logger = log4js.getLogger('routers/api/private/profile/calendar')
 
 router
   .route('/')
@@ -43,7 +46,7 @@ router
         }
       })
     }).catch(function (err) {
-      console.log('create calendar faild', err)
+      logger.warn('create calendar faild, err: ' + err)
       res.send({
         success: false,
         message: getErrorMessage(err) || err 
@@ -76,7 +79,7 @@ router
         })
       }
     }).catch(function (err) {
-      console.log('update calendar faild', err)
+      logger.warn('update calendar faild, err: ' + err)
       res.send({
         success: false,
         message: getErrorMessage(err) || err
@@ -96,7 +99,7 @@ router
         }
       })
     }).catch(function (err) {
-      console.log('remove calendar faild', err)
+      logger.warn('remove calendar faild, err: ' + err)
       res.send({
         success: false,
         message: getErrorMessage(err) || err

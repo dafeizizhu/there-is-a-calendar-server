@@ -12,7 +12,6 @@ module.exports = function () {
         resolve()
       })
       mongoose.connection.on('error', function (err) {
-        console.warn('Unable to connect to db', err)
         reject(err)
       })
     }

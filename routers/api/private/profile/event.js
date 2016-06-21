@@ -1,6 +1,7 @@
 var express = require('express')
 var router = new express.Router()
 var ObjectId = require('mongoose').Types.ObjectId
+var log4js = require('log4js')
 
 var Event = require('../../../../models/event')
 
@@ -9,6 +10,8 @@ function getErrorMessage(err) {
     return '非法数据'
   }
 }
+
+var logger = log4js.getLogger('routes/api/private/profile/event')
 
 router
   .route('/')
@@ -47,7 +50,7 @@ router
         }
       })
     }).catch(function (err) {
-      console.log(err)
+      logger.warn('create event failed, err: ' + err)
       res.send({
         success: false,
         message: getErrorMessage(err) || err
