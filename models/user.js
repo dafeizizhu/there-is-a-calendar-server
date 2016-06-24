@@ -4,7 +4,7 @@ var uuid = require('node-uuid')
 var UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
     unique: true
   },
   password: {

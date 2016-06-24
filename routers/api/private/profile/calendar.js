@@ -58,7 +58,7 @@ router
   .route('/:id')
   .put(function (req, res) {
     Calendar.findByIdAndUpdate(req.params.id, {
-      name: req.body.name,
+      name: req.body.name ? req.body.name.trim() : '',
       color: req.body.color
     }).then(function (c) {
       if (c) {

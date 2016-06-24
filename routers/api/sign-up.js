@@ -4,10 +4,13 @@ var router = new express.Router()
 var User = require('../../models/user')
 var objectId = require('mongoose').Types.ObjectId
 var md5 = require('md5')
+var log4js = require('log4js')
 
 var messages = {
   '11000': '用户名已存在'
 }
+
+var logger = log4js.getLogger('routers/api/sign-up')
 
 router
   .route('/')
@@ -29,7 +32,8 @@ router
           success: true,
           message: '创建成功'
         })
-      }, function (err) {
+      }).catch(function (err) {
+        logger.warn('sign-up faild, err: ', err)
         res.send({
           success: false,
           message: messages[String(err.code)]
