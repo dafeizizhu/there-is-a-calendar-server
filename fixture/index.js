@@ -30,13 +30,22 @@ require('../connect-db')().then(function () {
 }).then(function () {
   return dropCollection('events')
 }).then(function () {
+  console.log('create user...')
   return User.create({
-    _id: ObjectId(),
-    name: '测试',
+    name: 'test',
     password: md5('123')
   })
-}).then(function () {
-  console.log('create success, arguments', arguments)
+}).then(function (u) {
+  console.log('created user', u)
+  console.log('create calendar...')
+  return Calendar.create({
+    name: '工作',
+    color: 'red',
+    user: u._id
+  })
+}).then(function (c) {
+  console.log('created calendar', c)
+  console.log('create success')
   process.exit()
 }).catch(function () {
   console.log('create failed, arguments', arguments)
